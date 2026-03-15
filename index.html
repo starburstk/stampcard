@@ -16,20 +16,24 @@ padding:30px 10px;
 }
 
 h1{
-font-size: 20px; /* タイトルの文字サイズをさらに小さくして1行に収める */
+font-size: 24px; /* タイトル文字を大きく（説明文より大きく） */
 color:#d33;
-margin-bottom:10px;
+margin-top: 20px;
+margin-bottom: 0px; /* 下のマージンを減らす */
 white-space: nowrap; /* 強制的に1行にする */
 }
 
-.icon {
+/* タイトルと説明文の間のイチゴ用 */
+.title-icon {
 font-size: 40px;
-margin-bottom: 15px;
+margin-top: 10px; /* 上下の余白を調整 */
+margin-bottom: 10px;
 }
 
 .subtitle{
-font-size:22px; 
+font-size:20px; /* 説明文の文字サイズ（タイトルより小さく） */
 margin-bottom:30px;
+color: #333; /* 文字色を少し濃くして読みやすく */
 }
 
 .card{
@@ -100,8 +104,10 @@ color:white;
 
 <body>
 
-<h1>🍓 輝きグループ出席カード</h1>
-<div class="icon">🍓</div>
+<h1>輝きグループ出席カード</h1>
+
+<div class="title-icon">🍓</div>
+
 <div class="subtitle">「参加」ボタンを押してね</div>
 
 <div class="card" id="card"></div>
