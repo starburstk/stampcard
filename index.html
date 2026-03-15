@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-<link rel="apple-touch-icon" href="IMG_0835.png">
+<link rel="apple-touch-icon" href="icon.png">
 <link rel="icon" href="icon.png">
 
 <title>出席カード</title>
@@ -36,6 +36,50 @@ font-size: 40px;
 margin-top: 10px; 
 margin-bottom: 10px;
 }
+
+/* ★追加：お名前エリアのスタイル */
+.name-area {
+text-align: left; /* 左寄せ */
+font-size: 20px; /* 説明文と同じ文字サイズ */
+max-width: 500px;
+margin: 0 auto 20px auto; /* 中央配置の枠の中で左寄せにするため */
+padding: 0 10px;
+color: #333;
+font-weight: bold;
+min-height: 30px;
+}
+
+.name-input-wrapper {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.name-input {
+font-size: 18px;
+padding: 8px 12px;
+border: 2px solid #ff6b81;
+border-radius: 8px;
+width: 60%;
+font-family: inherit;
+/* 入力欄だけは文字選択できるようにする */
+user-select: auto;
+-webkit-user-select: auto;
+}
+
+.name-btn {
+font-size: 16px;
+padding: 8px 16px;
+background: #ff6b81;
+color: white;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-weight: bold;
+height: auto;
+width: auto;
+}
+/* -------------------------------- */
 
 .subtitle{
 font-size:20px; 
@@ -116,6 +160,9 @@ color:white;
 
 <h1>輝きグループ出席カード</h1>
 <div class="title-icon">🍓</div>
+
+<div id="name-container" class="name-area"></div>
+
 <div class="subtitle">「参加」ボタンを押してね</div>
 
 <div class="card" id="card"></div>
@@ -128,67 +175,93 @@ color:white;
 <script>
 
 let stamps = JSON.parse(localStorage.getItem("stamps")) || []
+// ★追加：保存されている名前を読み込む
+let userName = localStorage.getItem("userName") || ""
+
+// ★追加：名前を表示（または入力欄を表示）する機能
+function renderName() {
+  const container = document.getElementById("name-container");
+  if (userName) {
+    // 名前が保存されていればテキストで表示
+    container.textContent = userName + " さん";
+  } else {
+    // 保存されていなければ入力欄を表示
+    container.innerHTML = `
+      <div class="name-input-wrapper">
+        <input type="text" id="name-input" class="name-input" placeholder="おなまえ">
+        <button class="name-btn" onclick="saveName()">決定</button>
+      </div>
+    `;
+  }
+}
+
+// ★追加：名前を保存する機能
+function saveName() {
+  const input = document.getElementById("name-input");
+  const name = input.value.trim(); // 前後の空白を消す
+  
+  if (name) {
+    userName = name;
+    localStorage.setItem("userName", userName);
+    renderName(); // 保存したら表示を切り替える
+  } else {
+    alert("おなまえを入力してね！");
+  }
+}
+
 
 function render(){
+  const card=document.getElementById("card")
+  card.innerHTML=""
 
-const card=document.getElementById("card")
-card.innerHTML=""
+  for(let i=0;i<8;i++){
+    let slot=document.createElement("div")
+    slot.className="slot"
 
-for(let i=0;i<8;i++){
+    let mark=document.createElement("div")
+    mark.className="stamp-mark"
 
-let slot=document.createElement("div")
-slot.className="slot"
+    let dateText=document.createElement("div")
+    dateText.className="stamp-date"
 
-let mark=document.createElement("div")
-mark.className="stamp-mark"
+    if(stamps[i]){
+      mark.textContent="🍓"
+      dateText.textContent=stamps[i]
+    }else{
+      mark.textContent="○"
+      dateText.textContent=""
+    }
 
-let dateText=document.createElement("div")
-dateText.className="stamp-date"
-
-if(stamps[i]){
-  mark.textContent="🍓"
-  dateText.textContent=stamps[i]
-}else{
-  mark.textContent="○"
-  dateText.textContent=""
-}
-
-slot.appendChild(mark)
-slot.appendChild(dateText)
-card.appendChild(slot)
-
-}
-
+    slot.appendChild(mark)
+    slot.appendChild(dateText)
+    card.appendChild(slot)
+  }
 }
 
 function addStamp(){
+  if(stamps.length>=8){
+    alert("スタンプは8個までです")
+    return
+  }
 
-if(stamps.length>=8){
-alert("スタンプは8個までです")
-return
-}
+  let today=new Date()
+  let dateStr=(today.getMonth() + 1) + "/" + today.getDate()
 
-let today=new Date()
-let dateStr=(today.getMonth() + 1) + "/" + today.getDate()
-
-stamps.push(dateStr)
-
-localStorage.setItem("stamps",JSON.stringify(stamps))
-
-render()
-
+  stamps.push(dateStr)
+  localStorage.setItem("stamps",JSON.stringify(stamps))
+  render()
 }
 
 function resetCard(){
-
-if(confirm("スタンプを全部リセットしますか？")){
-stamps=[]
-localStorage.removeItem("stamps")
-render()
+  if(confirm("スタンプを全部リセットしますか？")){
+    stamps=[]
+    localStorage.removeItem("stamps")
+    render()
+  }
 }
 
-}
-
+// ページを開いたときに名前とスタンプを表示する
+renderName()
 render()
 
 </script>
