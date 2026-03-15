@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>輝きグループ出席カード</title>
+<title>出席カード</title>
 
 <style>
 
@@ -12,42 +12,71 @@ font-family:"Hiragino Maru Gothic ProN",sans-serif;
 text-align:center;
 background:#fff7f7;
 margin:0;
-padding:30px;
+padding:30px 10px;
 }
 
 h1{
-font-size:48px;
+font-size:24px; 
 color:#d33;
 margin-bottom:10px;
+white-space: nowrap; 
+}
+
+.icon {
+font-size: 40px;
+margin-bottom: 15px;
 }
 
 .subtitle{
-font-size:26px;
+font-size:22px; /* 説明文を大きくしました */
 margin-bottom:30px;
 }
 
 .card{
 display:grid;
 grid-template-columns:repeat(4,1fr);
-gap:20px;
+gap:15px;
 max-width:500px;
 margin:40px auto;
 }
 
 .slot{
-font-size:90px;
+aspect-ratio: 3 / 4; 
+display: flex;
+flex-direction: column; /* 縦並びに変更 */
+align-items: center;
+justify-content: center;
 background:white;
-border-radius:20px;
-padding:10px;
+border-radius:10px;
 box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
 
+/* スタンプのマーク（○や🍓）用 */
+.stamp-mark {
+font-size: 40px; 
+}
+
+/* スタンプの下の日付用 */
+.stamp-date {
+font-size: 12px;
+color: #666;
+margin-top: 5px;
+min-height: 14px; /* 日付がない時もレイアウトが崩れないように高さを確保 */
+}
+
+.buttons{
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 15px;
+}
+
 button{
-font-size:26px;
-padding:18px 30px;
-margin:12px;
+font-size:24px; /* ボタンの文字を大きくしました */
+padding:18px 60px; /* ボタンのサイズ（余白）を大きくしました */
+font-weight: bold;
 border:none;
-border-radius:16px;
+border-radius:16px; /* 丸みも少し強めに */
 cursor:pointer;
 }
 
@@ -61,32 +90,20 @@ background:#777;
 color:white;
 }
 
-.history{
-margin-top:40px;
-font-size:22px;
-}
-
-ul{
-padding-left:0;
-list-style:none;
-}
-
 </style>
 </head>
 
 <body>
 
-<h1>🍓 輝きグループ出席カード 🍓</h1>
+<h1>🍓 輝きグループ出席カード</h1>
+<div class="icon">🍓</div>
 <div class="subtitle">「参加」ボタンを押してね</div>
 
 <div class="card" id="card"></div>
 
-<button class="stampbtn" onclick="addStamp()">🍓 参加</button>
-<button class="resetbtn" onclick="resetCard()">リセット</button>
-
-<div class="history">
-<h3>履歴</h3>
-<ul id="history"></ul>
+<div class="buttons">
+  <button class="stampbtn" onclick="addStamp()">🍓 参加</button>
+  <button class="resetbtn" onclick="resetCard()">リセット</button>
 </div>
 
 <script>
@@ -103,24 +120,26 @@ for(let i=0;i<8;i++){
 let slot=document.createElement("div")
 slot.className="slot"
 
+let mark=document.createElement("div")
+mark.className="stamp-mark"
+
+let dateText=document.createElement("div")
+dateText.className="stamp-date"
+
+// スタンプがある場合は🍓と日付を表示、ない場合は○のみ
 if(stamps[i]){
-slot.textContent="🍓"
+  mark.textContent="🍓"
+  dateText.textContent=stamps[i]
 }else{
-slot.textContent="○"
+  mark.textContent="○"
+  dateText.textContent=""
 }
 
+slot.appendChild(mark)
+slot.appendChild(dateText)
 card.appendChild(slot)
 
 }
-
-const list=document.getElementById("history")
-list.innerHTML=""
-
-stamps.forEach(d=>{
-let li=document.createElement("li")
-li.textContent=d
-list.appendChild(li)
-})
 
 }
 
@@ -131,9 +150,11 @@ alert("スタンプは8個までです")
 return
 }
 
-let today=new Date().toLocaleDateString("ja-JP")
+let today=new Date()
+// 枠内に収まりやすいように「月/日」の形式に変更
+let dateStr=(today.getMonth() + 1) + "/" + today.getDate()
 
-stamps.push(today)
+stamps.push(dateStr)
 
 localStorage.setItem("stamps",JSON.stringify(stamps))
 
