@@ -15,37 +15,49 @@ padding:40px;
 
 h1{
 color:#d33;
+font-size:40px;
+margin-bottom:10px;
+}
+
+.subtitle{
+font-size:20px;
+margin-bottom:30px;
 }
 
 .card{
 display:grid;
-grid-template-columns:repeat(4,80px);
-gap:15px;
+grid-template-columns:repeat(4,120px);
+gap:20px;
 justify-content:center;
-margin:30px auto;
+margin:40px auto;
 }
 
 .slot{
-font-size:50px;
+font-size:80px;
 }
 
 button{
-background:#ff6b81;
+font-size:22px;
+padding:15px 30px;
+margin:10px;
 border:none;
-color:white;
-padding:12px 24px;
-font-size:18px;
 border-radius:12px;
 cursor:pointer;
 }
 
-button:hover{
-background:#ff4f6b;
+.stampbtn{
+background:#ff6b81;
+color:white;
+}
+
+.resetbtn{
+background:#999;
+color:white;
 }
 
 .history{
-margin-top:30px;
-font-size:14px;
+margin-top:40px;
+font-size:20px;
 }
 
 </style>
@@ -53,14 +65,16 @@ font-size:14px;
 
 <body>
 
-<h1>🍓 出席カード 🍓</h1>
+<h1>🍓 輝きグループ出席カード 🍓</h1>
+<div class="subtitle">今日来たらスタンプを押してね</div>
 
 <div class="card" id="card"></div>
 
-<button onclick="addStamp()">今日のスタンプ</button>
+<button class="stampbtn" onclick="addStamp()">🍓 スタンプ</button>
+<button class="resetbtn" onclick="resetCard()">リセット</button>
 
 <div class="history">
-<h3>スタンプ履歴</h3>
+<h3>履歴</h3>
 <ul id="history"></ul>
 </div>
 
@@ -70,7 +84,7 @@ let stamps = JSON.parse(localStorage.getItem("stamps")) || []
 
 function render(){
 
-const card = document.getElementById("card")
+const card=document.getElementById("card")
 card.innerHTML=""
 
 for(let i=0;i<8;i++){
@@ -113,6 +127,16 @@ stamps.push(today)
 localStorage.setItem("stamps",JSON.stringify(stamps))
 
 render()
+
+}
+
+function resetCard(){
+
+if(confirm("スタンプを全部リセットしますか？")){
+stamps=[]
+localStorage.removeItem("stamps")
+render()
+}
 
 }
 
