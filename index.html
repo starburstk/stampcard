@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>出席カード</title>
+
+<style>
+
+body{
+font-family: "Hiragino Maru Gothic ProN", sans-serif;
+text-align:center;
+background:#fff7f7;
+padding:40px;
+}
+
+h1{
+color:#d33;
+}
+
+.card{
+display:grid;
+grid-template-columns:repeat(4,80px);
+gap:15px;
+justify-content:center;
+margin:30px auto;
+}
+
+.slot{
+font-size:50px;
+}
+
+button{
+background:#ff6b81;
+border:none;
+color:white;
+padding:12px 24px;
+font-size:18px;
+border-radius:12px;
+cursor:pointer;
+}
+
+button:hover{
+background:#ff4f6b;
+}
+
+.history{
+margin-top:30px;
+font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🍓 出席カード 🍓</h1>
+
+<div class="card" id="card"></div>
+
+<button onclick="addStamp()">今日のスタンプ</button>
+
+<div class="history">
+<h3>スタンプ履歴</h3>
+<ul id="history"></ul>
+</div>
+
+<script>
+
+let stamps = JSON.parse(localStorage.getItem("stamps")) || []
+
+function render(){
+
+const card = document.getElementById("card")
+card.innerHTML=""
+
+for(let i=0;i<8;i++){
+
+let slot=document.createElement("div")
+slot.className="slot"
+
+if(stamps[i]){
+slot.textContent="🍓"
+}else{
+slot.textContent="○"
+}
+
+card.appendChild(slot)
+
+}
+
+const list=document.getElementById("history")
+list.innerHTML=""
+
+stamps.forEach(d=>{
+let li=document.createElement("li")
+li.textContent=d
+list.appendChild(li)
+})
+
+}
+
+function addStamp(){
+
+if(stamps.length>=8){
+alert("スタンプは8個までです")
+return
+}
+
+let today=new Date().toLocaleDateString("ja-JP")
+
+stamps.push(today)
+
+localStorage.setItem("stamps",JSON.stringify(stamps))
+
+render()
+
+}
+
+render()
+
+</script>
+
+</body>
+</html>
