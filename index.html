@@ -7,8 +7,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
 <meta name="apple-mobile-web-app-title" content="輝きスタンプ">
-<link rel="apple-touch-icon" href="icon.png">
-<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="IMG_0835.png">
+<link rel="icon" href="IMG_0835.png">
 
 <title>輝きスタンプ</title>
 
@@ -79,14 +79,13 @@ height: auto;
 width: auto;
 }
 
-/* ★変更：名前をタップできるようにするスタイル */
 .name-display {
 display: inline-flex;
-align-items: baseline; /* 文字の下のラインを揃える */
+align-items: baseline; 
 gap: 8px;
 cursor: pointer; 
 transition: opacity 0.2s;
-border-bottom: 2px dashed #ffb6c1; /* ★追加：変更できることがわかる可愛いピンクの点線 */
+border-bottom: 2px dashed #ffb6c1; 
 padding-bottom: 2px;
 }
 
@@ -94,10 +93,9 @@ padding-bottom: 2px;
 opacity: 0.6;
 }
 
-/* ★変更：鉛筆マークの代わりに文字にするスタイル */
 .edit-hint {
 font-size: 12px;
-color: #aaa; /* 控えめなグレー文字 */
+color: #aaa; 
 font-weight: normal;
 }
 
@@ -200,7 +198,6 @@ let userName = localStorage.getItem("userName") || ""
 function renderName() {
   const container = document.getElementById("name-container");
   if (userName) {
-    // ★変更：鉛筆マークを「(タップでなおす)」という文字に変更しました
     container.innerHTML = `
       <div class="name-display" onclick="editName()">
         <span>${userName} さん</span>
