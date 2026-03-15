@@ -79,23 +79,24 @@ height: auto;
 width: auto;
 }
 
-/* ★追加：名前を表示しているときのレイアウト */
+/* ★変更：名前をタップできるようにするスタイル */
 .name-display {
-display: flex;
+display: inline-flex;
 align-items: center;
-gap: 15px; /* 名前と変更ボタンの隙間 */
+gap: 8px;
+cursor: pointer; /* タップできるよ！というカーソル（指マーク）にする */
+transition: opacity 0.2s;
 }
 
-/* ★追加：名前を変更する「なおす」ボタン */
-.edit-btn {
-font-size: 14px;
-padding: 4px 10px;
-background: #eee; /* 目立ちすぎないように薄いグレーに */
-color: #555;
-border: none;
-border-radius: 6px;
-cursor: pointer;
-font-weight: normal;
+/* タップした時に少しだけ薄くして反応を見せる */
+.name-display:active {
+opacity: 0.6;
+}
+
+/* 横の小さな鉛筆マークのスタイル */
+.edit-hint {
+font-size: 12px;
+opacity: 0.4; /* 目立たないように半透明にする */
 }
 
 .subtitle{
@@ -197,11 +198,11 @@ let userName = localStorage.getItem("userName") || ""
 function renderName() {
   const container = document.getElementById("name-container");
   if (userName) {
-    // ★変更：「なおす」ボタンを追加
+    // ★変更：ボタンを無くして、全体をタップできるようにしました
     container.innerHTML = `
-      <div class="name-display">
+      <div class="name-display" onclick="editName()">
         <span>${userName} さん</span>
-        <button class="edit-btn" onclick="editName()">✏️ なおす</button>
+        <span class="edit-hint">✏️</span>
       </div>
     `;
   } else {
@@ -214,7 +215,6 @@ function renderName() {
   }
 }
 
-// ★追加：「なおす」ボタンを押したときの処理（入力欄を再表示）
 function editName() {
   const container = document.getElementById("name-container");
   container.innerHTML = `
