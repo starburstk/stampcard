@@ -82,21 +82,23 @@ width: auto;
 /* ★変更：名前をタップできるようにするスタイル */
 .name-display {
 display: inline-flex;
-align-items: center;
+align-items: baseline; /* 文字の下のラインを揃える */
 gap: 8px;
-cursor: pointer; /* タップできるよ！というカーソル（指マーク）にする */
+cursor: pointer; 
 transition: opacity 0.2s;
+border-bottom: 2px dashed #ffb6c1; /* ★追加：変更できることがわかる可愛いピンクの点線 */
+padding-bottom: 2px;
 }
 
-/* タップした時に少しだけ薄くして反応を見せる */
 .name-display:active {
 opacity: 0.6;
 }
 
-/* 横の小さな鉛筆マークのスタイル */
+/* ★変更：鉛筆マークの代わりに文字にするスタイル */
 .edit-hint {
 font-size: 12px;
-opacity: 0.4; /* 目立たないように半透明にする */
+color: #aaa; /* 控えめなグレー文字 */
+font-weight: normal;
 }
 
 .subtitle{
@@ -198,11 +200,11 @@ let userName = localStorage.getItem("userName") || ""
 function renderName() {
   const container = document.getElementById("name-container");
   if (userName) {
-    // ★変更：ボタンを無くして、全体をタップできるようにしました
+    // ★変更：鉛筆マークを「(タップでなおす)」という文字に変更しました
     container.innerHTML = `
       <div class="name-display" onclick="editName()">
         <span>${userName} さん</span>
-        <span class="edit-hint">✏️</span>
+        <span class="edit-hint">(タップでなおす)</span>
       </div>
     `;
   } else {
