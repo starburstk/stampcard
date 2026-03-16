@@ -29,7 +29,7 @@ font-size: 24px;
 color:#d33;
 margin-top: 20px;
 margin-bottom: 0px; 
-white-space: nowrap; 
+line-height: 1.4; /* 改行しても綺麗に見えるように調整 */
 }
 
 .title-icon {
@@ -94,8 +94,22 @@ opacity: 0.6;
 
 .subtitle{
 font-size:20px; 
-margin-bottom:30px;
+margin-bottom: 20px;
 color: #333; 
+}
+
+/* ★追加：上下にピンクの線が入ったスローガン */
+.slogan {
+font-size: 18px;
+color: #333;
+font-weight: bold;
+line-height: 1.6;
+border-top: 2px solid #ffb6c1;
+border-bottom: 2px solid #ffb6c1;
+padding: 15px 0;
+margin: 0 auto 30px auto;
+width: 85%;
+max-width: 320px;
 }
 
 .card{
@@ -103,7 +117,7 @@ display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:15px;
 max-width:500px;
-margin:40px auto;
+margin:30px auto;
 }
 
 .slot{
@@ -115,6 +129,18 @@ justify-content: center;
 background:white;
 border-radius:10px;
 box-shadow:0 4px 10px rgba(0,0,0,0.1);
+transition: transform 0.1s, opacity 0.2s; /* 押したときのアニメーション用 */
+}
+
+/* ★追加：まだスタンプが押されていない「◯」の枠だけタップできるようにする */
+.slot.empty {
+cursor: pointer;
+}
+
+/* ★追加：タップした時に少し凹むような動きをつける */
+.slot.empty:active {
+transform: scale(0.92);
+background: #fff5f5;
 }
 
 .stamp-mark {
@@ -132,36 +158,23 @@ min-height: 14px;
 display: flex;
 flex-direction: column;
 align-items: center;
-gap: 15px;
+margin-top: 30px;
 }
 
-button{
-font-size:24px; 
-height: 60px; 
-width: 220px; 
-border:none;
-border-radius:16px;
-cursor:pointer;
-display: flex; 
-align-items: center;
-justify-content: center;
-padding: 0; 
-font-weight: bold;
+/* ★変更：リセットボタンを小さく、薄いグレーに変更 */
+.resetbtn{
+font-size: 14px; /* 透かしの文字と同じくらいのサイズ */
+padding: 8px 16px;
+background: #e0e0e0; /* 薄いグレー */
+color: #666; /* 文字も濃いグレー */
+border: none;
+border-radius: 8px; /* 丸みも小さく */
+cursor: pointer;
 transition: opacity 0.2s;
 }
 
-button:active {
+.resetbtn:active {
 opacity: 0.7;
-}
-
-.stampbtn{
-background:#ff6b81;
-color:white;
-}
-
-.resetbtn{
-background:#777;
-color:white;
 }
 
 </style>
@@ -169,17 +182,22 @@ color:white;
 
 <body>
 
-<h1>輝きグループ出席カード</h1>
+<h1>上北沢輝きグループ<br>出席カード</h1>
 <div class="title-icon">🍓</div>
 
 <div id="name-container" class="name-area"></div>
 
-<div class="subtitle">「参加」ボタンを押してね</div>
+<div class="subtitle">参加したら、◯ボタンを押してね</div>
+
+<div class="slogan">
+  皆で語り<br>
+  皆で学び<br>
+  皆が創価の幸福博士に
+</div>
 
 <div class="card" id="card"></div>
 
 <div class="buttons">
-  <button class="stampbtn" onclick="addStamp()">🍓 参加</button>
   <button class="resetbtn" onclick="resetCard()">リセット</button>
 </div>
 
@@ -191,7 +209,6 @@ let userName = localStorage.getItem("userName") || ""
 function renderName() {
   const container = document.getElementById("name-container");
   if (userName) {
-    // ★変更：「(タップでなおす)」のテキストを削除しました
     container.innerHTML = `
       <div class="name-display" onclick="editName()">
         <span>${userName} さん</span>
@@ -245,11 +262,15 @@ function render(){
     dateText.className="stamp-date"
 
     if(stamps[i]){
+      // スタンプ済みの枠
       mark.textContent="🍓"
       dateText.textContent=stamps[i]
     }else{
-      mark.textContent="○"
+      // まだ押されていない枠（タップ可能にする）
+      mark.textContent="◯"
       dateText.textContent=""
+      slot.classList.add("empty") // CSSでタップ時の動きをつけるためのクラス
+      slot.onclick = addStamp // タップしたらスタンプを押す機能を追加
     }
 
     slot.appendChild(mark)
