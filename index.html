@@ -1,13 +1,23 @@
+
+
 <!DOCTYPE html>
+
 <html lang="ja">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <meta name="apple-mobile-web-app-capable" content="yes">
+
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
 <meta name="apple-mobile-web-app-title" content="輝きスタンプ">
+
 <link rel="apple-touch-icon" href="IMG_0835.png">
+
 <link rel="icon" href="IMG_0835.png">
 
 <title>輝きスタンプ</title>
@@ -15,174 +25,437 @@
 <style>
 
 body{
+
 font-family:"Hiragino Maru Gothic ProN",sans-serif;
+
 text-align:center;
+
 background:#fff7f7;
+
 margin:0;
+
 padding:30px 10px;
-user-select: none; 
--webkit-user-select: none;
+
+user-select:none;
+
+-webkit-user-select:none;
+
 }
 
 h1{
-font-size: 24px; 
+
+font-size:24px;
+
 color:#d33;
-margin-top: 20px;
-margin-bottom: 0px; 
-line-height: 1.4; /* 改行しても綺麗に見えるように調整 */
+
+margin-top:20px;
+
+margin-bottom:0;
+
+line-height:1.4;
+
+cursor:pointer;
+
 }
 
-.title-icon {
-font-size: 40px;
-margin-top: 10px; 
-margin-bottom: 10px;
+.title-icon{
+
+font-size:40px;
+
+margin-top:10px;
+
+margin-bottom:10px;
+
 }
 
-.name-area {
-text-align: left; 
-font-size: 20px; 
-max-width: 500px;
-margin: 0 auto 20px auto; 
-padding: 0 10px;
-color: #ff6b81; 
-font-weight: bold;
-min-height: 30px;
+.name-area{
+
+text-align:left;
+
+font-size:20px;
+
+max-width:500px;
+
+margin:0 auto 20px auto;
+
+padding:0 10px;
+
+color:#ff6b81;
+
+font-weight:bold;
+
+min-height:30px;
+
 }
 
-.name-input-wrapper {
-display: flex;
-align-items: center;
-gap: 10px;
+.name-input-wrapper{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
 }
 
-.name-input {
-font-size: 18px;
-padding: 8px 12px;
-border: 2px solid #ff6b81;
-border-radius: 8px;
-width: 60%;
-font-family: inherit;
-user-select: auto;
--webkit-user-select: auto;
+.name-input{
+
+font-size:18px;
+
+padding:8px 12px;
+
+border:2px solid #ff6b81;
+
+border-radius:8px;
+
+width:60%;
+
+font-family:inherit;
+
+user-select:auto;
+
+-webkit-user-select:auto;
+
 }
 
-.name-btn {
-font-size: 16px;
-padding: 8px 16px;
-background: #ff6b81;
-color: white;
-border: none;
-border-radius: 8px;
-cursor: pointer;
-font-weight: bold;
-height: auto;
-width: auto;
+.name-btn{
+
+font-size:16px;
+
+padding:8px 16px;
+
+background:#ff6b81;
+
+color:white;
+
+border:none;
+
+border-radius:8px;
+
+cursor:pointer;
+
+font-weight:bold;
+
 }
 
-.name-display {
-display: inline-flex;
-align-items: baseline; 
-cursor: pointer; 
-transition: opacity 0.2s;
-border-bottom: 2px dashed #ffb6c1; 
-padding-bottom: 2px;
+.name-display{
+
+display:inline-flex;
+
+align-items:baseline;
+
+cursor:pointer;
+
+transition:opacity 0.2s;
+
+border-bottom:2px dashed #ffb6c1;
+
+padding-bottom:2px;
+
 }
 
-.name-display:active {
-opacity: 0.6;
+.name-display:active{
+
+opacity:0.6;
+
 }
 
 .subtitle{
-font-size:20px; 
-margin-bottom: 20px;
-color: #333; 
+
+font-size:20px;
+
+margin-bottom:20px;
+
+color:#333;
+
 }
 
-/* ★追加：上下にピンクの線が入ったスローガン */
-.slogan {
-font-size: 18px;
-color: #333;
-font-weight: bold;
-line-height: 1.6;
-border-top: 2px solid #ffb6c1;
-border-bottom: 2px solid #ffb6c1;
-padding: 15px 0;
-margin: 0 auto 30px auto;
-width: 85%;
-max-width: 320px;
+.slogan{
+
+font-size:18px;
+
+color:#333;
+
+font-weight:bold;
+
+line-height:1.6;
+
+border-top:2px solid #ffb6c1;
+
+border-bottom:2px solid #ffb6c1;
+
+padding:15px 0;
+
+margin:0 auto 30px auto;
+
+width:85%;
+
+max-width:320px;
+
+}
+
+/* ページ番号 */
+
+.page-title{
+
+font-size:20px;
+
+font-weight:bold;
+
+color:#ff6b81;
+
+margin:25px auto 10px auto;
+
 }
 
 .card{
+
 display:grid;
+
 grid-template-columns:repeat(4,1fr);
+
 gap:15px;
+
 max-width:500px;
-margin:30px auto;
+
+margin:20px auto 30px auto;
+
 }
 
 .slot{
-aspect-ratio: 3 / 4; 
-display: flex;
-flex-direction: column; 
-align-items: center;
-justify-content: center;
+
+aspect-ratio:3 / 4;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
 background:white;
+
 border-radius:10px;
+
 box-shadow:0 4px 10px rgba(0,0,0,0.1);
-transition: transform 0.1s, opacity 0.2s; /* 押したときのアニメーション用 */
+
+transition:transform 0.1s,opacity 0.2s;
+
 }
 
-/* ★追加：まだスタンプが押されていない「◯」の枠だけタップできるようにする */
-.slot.empty {
-cursor: pointer;
+.slot.empty{
+
+cursor:pointer;
+
 }
 
-/* ★追加：タップした時に少し凹むような動きをつける */
-.slot.empty:active {
-transform: scale(0.92);
-background: #fff5f5;
+.slot.empty:active{
+
+transform:scale(0.92);
+
+background:#fff5f5;
+
 }
 
-.stamp-mark {
-font-size: 40px; 
+.stamp-mark{
+
+font-size:40px;
+
 }
 
-.stamp-date {
-font-size: 12px;
-color: #666;
-margin-top: 5px;
-min-height: 14px; 
+.stamp-date{
+
+font-size:12px;
+
+color:#666;
+
+margin-top:5px;
+
+min-height:14px;
+
 }
 
-.buttons{
-display: flex;
-flex-direction: column;
-align-items: center;
-margin-top: 30px;
+/* ページ移動 */
+
+.navigation{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+max-width:500px;
+
+margin:25px auto 20px auto;
+
+gap:10px;
+
 }
 
-/* ★変更：リセットボタンを小さく、薄いグレーに変更 */
-.resetbtn{
-font-size: 14px; /* 透かしの文字と同じくらいのサイズ */
-padding: 8px 16px;
-background: #e0e0e0; /* 薄いグレー */
-color: #666; /* 文字も濃いグレー */
-border: none;
-border-radius: 8px; /* 丸みも小さく */
-cursor: pointer;
-transition: opacity 0.2s;
+.navbtn{
+
+font-size:15px;
+
+padding:10px 15px;
+
+background:#ff6b81;
+
+color:white;
+
+border:none;
+
+border-radius:8px;
+
+cursor:pointer;
+
+font-weight:bold;
+
 }
 
-.resetbtn:active {
-opacity: 0.7;
+.navbtn:disabled{
+
+background:#f5d9dd;
+
+color:#b99a9f;
+
+cursor:default;
+
+}
+
+/* 過去の記録ボタン */
+
+.history-btn{
+
+font-size:15px;
+
+padding:10px 20px;
+
+background:white;
+
+color:#ff6b81;
+
+border:2px solid #ffb6c1;
+
+border-radius:8px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+margin:10px auto 25px auto;
+
+}
+
+/* 過去の記録エリア */
+
+.history{
+
+display:none;
+
+max-width:500px;
+
+margin:10px auto 30px auto;
+
+text-align:left;
+
+background:white;
+
+padding:15px;
+
+border-radius:12px;
+
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
+
+}
+
+.history.show{
+
+display:block;
+
+}
+
+.history-heading{
+
+font-size:18px;
+
+font-weight:bold;
+
+color:#ff6b81;
+
+text-align:center;
+
+margin-bottom:15px;
+
+}
+
+.history-card{
+
+border-bottom:1px solid #f5d9dd;
+
+padding:12px 5px;
+
+}
+
+.history-card:last-child{
+
+border-bottom:none;
+
+}
+
+.history-card-title{
+
+font-size:16px;
+
+font-weight:bold;
+
+color:#d66b7e;
+
+margin-bottom:8px;
+
+}
+
+.history-dates{
+
+font-size:14px;
+
+color:#555;
+
+line-height:2;
+
+}
+
+.history-status{
+
+font-size:12px;
+
+color:#999;
+
+margin-top:5px;
+
+}
+
+.empty-history{
+
+text-align:center;
+
+font-size:14px;
+
+color:#999;
+
+padding:15px 0;
+
 }
 
 </style>
+
 </head>
 
 <body>
 
-<h1>上北沢 輝きグループ<br>出席カード</h1>
+<h1 id="main-title">上北沢 輝きグループ<br>出席カード</h1>
+
 <div class="title-icon">🍓</div>
 
 <div id="name-container" class="name-area"></div>
@@ -190,121 +463,519 @@ opacity: 0.7;
 <div class="subtitle">参加したら、◯ボタンを押してね</div>
 
 <div class="slogan">
-  皆で語り<br>
-  皆で学び<br>
-  皆が創価の幸福博士に
+
+皆で語り<br>
+
+皆で学び<br>
+
+皆が創価の幸福博士に
+
 </div>
+
+<!-- ページ番号 -->
+
+<div class="page-title" id="page-title">1枚目</div>
+
+<!-- スタンプカード -->
 
 <div class="card" id="card"></div>
 
-<div class="buttons">
-  <button class="resetbtn" onclick="resetCard()">リセット</button>
+<!-- ページ移動 -->
+
+<div class="navigation">
+
+<button class="navbtn" id="prevbtn" onclick="prevPage()">
+
+⇦ 1枚目へ
+
+</button>
+
+<button class="navbtn" id="nextbtn" onclick="nextPage()">
+
+⇨ 2枚目へ
+
+</button>
+
+</div>
+
+<!-- 過去の記録 -->
+
+<button class="history-btn" onclick="toggleHistory()">
+
+📖 過去の記録を見る
+
+</button>
+
+<div class="history" id="history">
+
+<div class="history-heading">🍓 これまでの出席記録 🍓</div>
+
+<div id="history-content"></div>
+
 </div>
 
 <script>
 
-let stamps = JSON.parse(localStorage.getItem("stamps")) || []
-let userName = localStorage.getItem("userName") || ""
+// 名前
+
+let userName = localStorage.getItem("userName") || "";
+
+// ページごとのスタンプ
+
+// 旧データがあれば1枚目に引き継ぐ
+
+let stampsByPage = JSON.parse(localStorage.getItem("stampsByPage"));
+
+if (!Array.isArray(stampsByPage)) {
+
+    let oldStamps = JSON.parse(localStorage.getItem("stamps")) || [];
+
+    stampsByPage = [oldStamps];
+
+}
+
+if (stampsByPage.length === 0) {
+
+    stampsByPage = [[]];
+
+}
+
+// 現在のページ
+
+let currentPage = 0;
+
+// 名前表示
 
 function renderName() {
-  const container = document.getElementById("name-container");
-  if (userName) {
-    container.innerHTML = `
-      <div class="name-display" onclick="editName()">
-        <span>${userName} さん</span>
-      </div>
-    `;
-  } else {
-    container.innerHTML = `
-      <div class="name-input-wrapper">
-        <input type="text" id="name-input" class="name-input" placeholder="おなまえ">
-        <button class="name-btn" onclick="saveName()">決定</button>
-      </div>
-    `;
-  }
-}
 
-function editName() {
-  const container = document.getElementById("name-container");
-  container.innerHTML = `
-    <div class="name-input-wrapper">
-      <input type="text" id="name-input" class="name-input" placeholder="おなまえ" value="${userName}">
-      <button class="name-btn" onclick="saveName()">決定</button>
-    </div>
-  `;
-}
+    const container = document.getElementById("name-container");
 
-function saveName() {
-  const input = document.getElementById("name-input");
-  const name = input.value.trim(); 
-  
-  if (name) {
-    userName = name;
-    localStorage.setItem("userName", userName);
-    renderName(); 
-  } else {
-    alert("おなまえを入力してね！");
-  }
-}
+    if (userName) {
 
-function render(){
-  const card=document.getElementById("card")
-  card.innerHTML=""
+        container.innerHTML = `
 
-  for(let i=0;i<8;i++){
-    let slot=document.createElement("div")
-    slot.className="slot"
+            <div class="name-display" onclick="editName()">
 
-    let mark=document.createElement("div")
-    mark.className="stamp-mark"
+                <span id="display-name"></span>
 
-    let dateText=document.createElement("div")
-    dateText.className="stamp-date"
+            </div>
 
-    if(stamps[i]){
-      // スタンプ済みの枠
-      mark.textContent="🍓"
-      dateText.textContent=stamps[i]
-    }else{
-      // まだ押されていない枠（タップ可能にする）
-      mark.textContent="◯"
-      dateText.textContent=""
-      slot.classList.add("empty") // CSSでタップ時の動きをつけるためのクラス
-      slot.onclick = addStamp // タップしたらスタンプを押す機能を追加
+        `;
+
+        document.getElementById("display-name").textContent =
+
+            userName + " さん";
+
+    } else {
+
+        container.innerHTML = `
+
+            <div class="name-input-wrapper">
+
+                <input type="text" id="name-input"
+
+                class="name-input" placeholder="おなまえ">
+
+                <button class="name-btn" onclick="saveName()">決定</button>
+
+            </div>
+
+        `;
+
     }
 
-    slot.appendChild(mark)
-    slot.appendChild(dateText)
-    card.appendChild(slot)
-  }
 }
 
-function addStamp(){
-  if(stamps.length>=8){
-    alert("スタンプは8個までです")
-    return
-  }
+// 名前編集
 
-  let today=new Date()
-  let dateStr=(today.getMonth() + 1) + "/" + today.getDate()
+function editName() {
 
-  stamps.push(dateStr)
-  localStorage.setItem("stamps",JSON.stringify(stamps))
-  render()
+    const container = document.getElementById("name-container");
+
+    container.innerHTML = `
+
+        <div class="name-input-wrapper">
+
+            <input type="text" id="name-input"
+
+            class="name-input" placeholder="おなまえ">
+
+            <button class="name-btn" onclick="saveName()">決定</button>
+
+        </div>
+
+    `;
+
+    document.getElementById("name-input").value = userName;
+
 }
 
-function resetCard(){
-  if(confirm("スタンプを全部リセットしますか？")){
-    stamps=[]
-    localStorage.removeItem("stamps")
-    render()
-  }
+// 名前保存
+
+function saveName() {
+
+    const input = document.getElementById("name-input");
+
+    const name = input.value.trim();
+
+    if (name) {
+
+        userName = name;
+
+        localStorage.setItem("userName", userName);
+
+        renderName();
+
+    } else {
+
+        alert("おなまえを入力してね！");
+
+    }
+
 }
 
-renderName()
-render()
+// スタンプ保存
+
+function saveStamps() {
+
+    localStorage.setItem(
+
+        "stampsByPage",
+
+        JSON.stringify(stampsByPage)
+
+    );
+
+}
+
+// 現在のページのスタンプ
+
+function getCurrentStamps() {
+
+    return stampsByPage[currentPage] || [];
+
+}
+
+// カード表示
+
+function render() {
+
+    const card = document.getElementById("card");
+
+    card.innerHTML = "";
+
+    const stamps = getCurrentStamps();
+
+    // ページ番号
+
+    document.getElementById("page-title").textContent =
+
+        (currentPage + 1) + "枚目";
+
+    // 前のページボタン
+
+    const prevBtn = document.getElementById("prevbtn");
+
+    if (currentPage === 0) {
+
+        prevBtn.disabled = true;
+
+        prevBtn.textContent = "⇦ 前のページ";
+
+    } else {
+
+        prevBtn.disabled = false;
+
+        prevBtn.textContent =
+
+            "⇦ " + currentPage + "枚目へ";
+
+    }
+
+    // 次のページボタン
+
+    document.getElementById("nextbtn").textContent =
+
+        "⇨ " + (currentPage + 2) + "枚目へ";
+
+    // 8個のスタンプ枠
+
+    for (let i = 0; i < 8; i++) {
+
+        let slot = document.createElement("div");
+
+        slot.className = "slot";
+
+        let mark = document.createElement("div");
+
+        mark.className = "stamp-mark";
+
+        let dateText = document.createElement("div");
+
+        dateText.className = "stamp-date";
+
+        if (stamps[i]) {
+
+            mark.textContent = "🍓";
+
+            dateText.textContent = stamps[i];
+
+        } else {
+
+            mark.textContent = "◯";
+
+            dateText.textContent = "";
+
+            slot.classList.add("empty");
+
+            slot.onclick = addStamp;
+
+        }
+
+        slot.appendChild(mark);
+
+        slot.appendChild(dateText);
+
+        card.appendChild(slot);
+
+    }
+
+}
+
+// スタンプを押す
+
+function addStamp() {
+
+    const stamps = getCurrentStamps();
+
+    if (stamps.length >= 8) {
+
+        alert("スタンプは8個までです");
+
+        return;
+
+    }
+
+    let today = new Date();
+
+    let dateStr =
+
+        (today.getMonth() + 1) + "/" + today.getDate();
+
+    stampsByPage[currentPage].push(dateStr);
+
+    saveStamps();
+
+    render();
+
+}
+
+// 次のページへ
+
+function nextPage() {
+
+    if (!stampsByPage[currentPage + 1]) {
+
+        stampsByPage[currentPage + 1] = [];
+
+        saveStamps();
+
+    }
+
+    currentPage++;
+
+    render();
+
+}
+
+// 前のページへ
+
+function prevPage() {
+
+    if (currentPage > 0) {
+
+        currentPage--;
+
+        render();
+
+    }
+
+}
+
+// 過去の記録表示
+
+function toggleHistory() {
+
+    const history = document.getElementById("history");
+
+    history.classList.toggle("show");
+
+    if (history.classList.contains("show")) {
+
+        renderHistory();
+
+        document.querySelector(".history-btn").textContent =
+
+            "📖 記録を閉じる";
+
+    } else {
+
+        document.querySelector(".history-btn").textContent =
+
+            "📖 過去の記録を見る";
+
+    }
+
+}
+
+// 過去の記録を作成
+
+function renderHistory() {
+
+    const content = document.getElementById("history-content");
+
+    content.innerHTML = "";
+
+    let hasRecords = false;
+
+    stampsByPage.forEach((stamps, index) => {
+
+        if (!stamps || stamps.length === 0) return;
+
+        hasRecords = true;
+
+        const section = document.createElement("div");
+
+        section.className = "history-card";
+
+        const title = document.createElement("div");
+
+        title.className = "history-card-title";
+
+        title.textContent = (index + 1) + "枚目";
+
+        const dates = document.createElement("div");
+
+        dates.className = "history-dates";
+
+        dates.textContent = stamps.join("　・　");
+
+        const status = document.createElement("div");
+
+        status.className = "history-status";
+
+        if (stamps.length === 8) {
+
+            status.textContent = "🍓 コンプリート！ 8回参加";
+
+        } else {
+
+            status.textContent =
+
+                stamps.length + "回参加・継続中";
+
+        }
+
+        section.appendChild(title);
+
+        section.appendChild(dates);
+
+        section.appendChild(status);
+
+        // 記録をタップするとそのページへ移動
+
+        section.style.cursor = "pointer";
+
+        section.onclick = function() {
+
+            currentPage = index;
+
+            document.getElementById("history").classList.remove("show");
+
+            document.querySelector(".history-btn").textContent =
+
+                "📖 過去の記録を見る";
+
+            render();
+
+            window.scrollTo(0, 0);
+
+        };
+
+        content.appendChild(section);
+
+    });
+
+    if (!hasRecords) {
+
+        const empty = document.createElement("div");
+
+        empty.className = "empty-history";
+
+        empty.textContent = "まだ出席記録はありません🍓";
+
+        content.appendChild(empty);
+
+    }
+
+}
+
+// タイトル2回タップでリセット
+
+let lastTitleTap = 0;
+
+document.getElementById("main-title").addEventListener("click", function() {
+
+    const now = Date.now();
+
+    if (now - lastTitleTap < 500) {
+
+        lastTitleTap = 0;
+
+        resetCard();
+
+    } else {
+
+        lastTitleTap = now;
+
+    }
+
+});
+
+// 現在のカードだけリセット
+
+function resetCard() {
+
+    if (confirm(
+
+        (currentPage + 1) +
+
+        "枚目のスタンプを全部リセットしますか？"
+
+    )) {
+
+        stampsByPage[currentPage] = [];
+
+        // 後ろのページはそのまま残す
+
+        saveStamps();
+
+        render();
+
+        renderHistory();
+
+    }
+
+}
+
+// 初期表示
+
+renderName();
+
+render();
 
 </script>
 
 </body>
+
 </html>
