@@ -194,8 +194,6 @@ max-width:320px;
 
 }
 
-/* ページ番号 */
-
 .page-title{
 
 font-size:20px;
@@ -294,6 +292,14 @@ gap:10px;
 
 }
 
+/* 1枚目だけ右寄せ */
+
+.navigation.first-page{
+
+justify-content:flex-end;
+
+}
+
 .navbtn{
 
 font-size:15px;
@@ -314,17 +320,29 @@ font-weight:bold;
 
 }
 
-.navbtn:disabled{
+/* 左ボタンは薄いピンク */
+
+.navbtn.prev{
 
 background:#f5d9dd;
 
 color:#b99a9f;
 
-cursor:default;
+}
+
+/* 1枚目では左ボタンを非表示 */
+
+.navbtn.hidden{
+
+display:none;
 
 }
 
-/* 過去の記録ボタン */
+.navbtn:active{
+
+opacity:0.8;
+
+}
 
 .history-btn{
 
@@ -347,8 +365,6 @@ font-weight:bold;
 margin:10px auto 25px auto;
 
 }
-
-/* 過去の記録エリア */
 
 .history{
 
@@ -410,7 +426,7 @@ font-size:16px;
 
 font-weight:bold;
 
-color:#d66b7e;
+color:#333;
 
 margin-bottom:8px;
 
@@ -472,29 +488,17 @@ padding:15px 0;
 
 </div>
 
-<!-- ページ番号 -->
-
 <div class="page-title" id="page-title">1枚目</div>
-
-<!-- スタンプカード -->
 
 <div class="card" id="card"></div>
 
 <!-- ページ移動 -->
 
-<div class="navigation">
+<div class="navigation first-page" id="navigation">
 
-<button class="navbtn" id="prevbtn" onclick="prevPage()">
+<button class="navbtn prev hidden" id="prevbtn" onclick="prevPage()"></button>
 
-⇦ 1枚目へ
-
-</button>
-
-<button class="navbtn" id="nextbtn" onclick="nextPage()">
-
-⇨ 2枚目へ
-
-</button>
+<button class="navbtn" id="nextbtn" onclick="nextPage()">⇨ 2枚目へ</button>
 
 </div>
 
@@ -521,8 +525,6 @@ padding:15px 0;
 let userName = localStorage.getItem("userName") || "";
 
 // ページごとのスタンプ
-
-// 旧データがあれば1枚目に引き継ぐ
 
 let stampsByPage = JSON.parse(localStorage.getItem("stampsByPage"));
 
@@ -666,25 +668,27 @@ function render() {
 
     const stamps = getCurrentStamps();
 
-    // ページ番号
-
     document.getElementById("page-title").textContent =
 
         (currentPage + 1) + "枚目";
 
-    // 前のページボタン
+    // ページ移動ボタンの配置
+
+    const navigation = document.getElementById("navigation");
 
     const prevBtn = document.getElementById("prevbtn");
 
     if (currentPage === 0) {
 
-        prevBtn.disabled = true;
+        prevBtn.classList.add("hidden");
 
-        prevBtn.textContent = "⇦ 前のページ";
+        navigation.classList.add("first-page");
 
     } else {
 
-        prevBtn.disabled = false;
+        prevBtn.classList.remove("hidden");
+
+        navigation.classList.remove("first-page");
 
         prevBtn.textContent =
 
@@ -698,7 +702,7 @@ function render() {
 
         "⇨ " + (currentPage + 2) + "枚目へ";
 
-    // 8個のスタンプ枠
+    // スタンプ枠
 
     for (let i = 0; i < 8; i++) {
 
@@ -882,7 +886,7 @@ function renderHistory() {
 
         section.appendChild(status);
 
-        // 記録をタップするとそのページへ移動
+        // 記録をタップすると該当ページへ移動
 
         section.style.cursor = "pointer";
 
@@ -955,8 +959,6 @@ function resetCard() {
     )) {
 
         stampsByPage[currentPage] = [];
-
-        // 後ろのページはそのまま残す
 
         saveStamps();
 
